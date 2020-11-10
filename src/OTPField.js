@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 const OTPField = ({
+  value,
   inputStyle,
   length,
   onSubmit,
@@ -24,6 +25,13 @@ const OTPField = ({
   }
 
   useEffect(() => {
+    if (!value) {
+      setOtp(new Array(length).fill(''))
+      refs[0].current.focus()
+    }
+  }, [value])
+
+  useEffect(() => {
     onChange(otp.join(''))
   }, [otp])
 
@@ -42,9 +50,13 @@ const OTPField = ({
             if (evt.keyCode === 8) {
               evt.preventDefault()
               let newOtp = [...otp]
+              let doesValueExist = newOtp[index]
               newOtp[index] = ''
+              index - 1 >= 0 &&
+                !doesValueExist &&
+                refs[index - 1].current.focus()
+              if (index - 1 >= 0 && !doesValueExist) newOtp[index - 1] = ''
               setOtp(newOtp)
-              index - 1 >= 0 && refs[index - 1].current.focus()
             }
             if (index + 1 === length && evt.keyCode === 13) {
               submitOnEnter()
@@ -78,7 +90,14 @@ const OTPField = ({
 }
 
 OTPField.defaultProps = {
-  inputStyle: {},
+  value: '',
+  inputStyle: {
+    outline: 'none',
+    textAlign: 'center',
+    width: '2rem',
+    height: '30px',
+    fontSize: '20px'
+  },
   inputFieldClassName: '',
   onSubmit: () => {},
   enableClearAll: false,
