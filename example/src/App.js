@@ -1,10 +1,22 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-simple-otp'
+import OTPField from 'react-simple-otp'
 import 'react-simple-otp/dist/index.css'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return (
+    <OTPField
+      length={6}
+      onSubmit={(value) => {
+        console.clear()
+        console.log(value)
+      }}
+      enableClearAll={true}
+      clearAllButtonText={'X'}
+      clearAllButtonStyle={{ border: '2px solid' }}
+      autoFocus={true}
+    />
+  )
 }
 
 export default App

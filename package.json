@@ -7,7 +7,7 @@
   "repository": "katcy/react-simple-otp",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
-  "source": "src/index.js",
+  "source": "src/OTPField.js",
   "engines": {
     "node": ">=10"
   },

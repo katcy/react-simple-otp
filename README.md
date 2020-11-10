@@ -15,12 +15,23 @@ npm install --save react-simple-otp
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-simple-otp'
-import 'react-simple-otp/dist/index.css'
+import OTPField from 'react-simple-otp'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return (
+      <OTPField
+        length={6}
+        inputStyle={{ outline: 'none' }} //custom styles for the input field
+        onSubmit={(value) => {
+          console.log(value) //otp value
+        }}
+        enableClearAll={true} //enables clear button right to the input fields
+        clearAllButtonText={'Clear'} //Button text for the clear all button
+        clearAllButtonStyle={{ border: '2px solid' }} //custom style for the Clear button
+        autoFocus={true} //enable Autofocus on the first input field on page load
+      />
+    )
   }
 }
 ```
