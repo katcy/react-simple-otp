@@ -15,6 +15,9 @@ const App = () => {
       clearAllButtonText={'X'}
       clearAllButtonStyle={{ border: '2px solid' }}
       autoFocus={true}
+      onChange={(val) => {
+        console.log(val)
+      }}
     />
   )
 }

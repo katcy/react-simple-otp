@@ -1,31 +1,19 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 const OTPField = ({
   inputStyle,
-  overrideInputStyle,
   length,
   onSubmit,
   enableClearAll,
   autoFocus,
-  clearAllButtonText,
+  clearAllButton,
   clearAllButtonStyle,
-  overrideButtonStyle
+  inputFieldClassName,
+  clearAllButtonClassName,
+  onChange
 }) => {
   const [otp, setOtp] = useState(new Array(length).fill(''))
-  const defaultInputStyle = {
-    marginRight: '5px',
-    border: 'none',
-    borderBottom: '2px solid black',
-    width: '20px',
-    outline: 'none'
-  }
-  const defaultButtonStyle = {
-    border: 'none',
-    background: 'transparent',
-    color: 'black',
-    outline: 'none',
-    cursor: 'pointer'
-  }
+
   let refs = []
   otp.map((l, index) => {
     refs[index] = useRef(null)
@@ -35,17 +23,18 @@ const OTPField = ({
     onSubmit(otp.join(''))
   }
 
+  useEffect(() => {
+    onChange(otp.join(''))
+  }, [otp])
+
   return (
     <div style={{ display: 'flex' }}>
       {otp.map((otpField, index) => (
         <input
           key={index}
+          className={inputFieldClassName}
           ref={refs[index]}
-          style={
-            overrideInputStyle
-              ? inputStyle
-              : Object.assign({}, inputStyle, defaultInputStyle)
-          }
+          style={inputStyle}
           maxLength={1}
           autoFocus={index === 0 && autoFocus ? true : false}
           value={otp[index]}
@@ -73,18 +62,15 @@ const OTPField = ({
       ))}
       {enableClearAll && (
         <button
-          style={
-            overrideButtonStyle
-              ? clearAllButtonStyle
-              : Object.assign({}, clearAllButtonStyle, defaultButtonStyle)
-          }
+          style={clearAllButtonStyle}
+          className={clearAllButtonClassName}
           onClick={() => {
             let newOtp = new Array(length).fill('')
             setOtp(newOtp)
             refs[0].current.focus()
           }}
         >
-          {clearAllButtonText ? clearAllButtonText : 'X'}
+          {clearAllButton}
         </button>
       )}
     </div>
@@ -93,13 +79,15 @@ const OTPField = ({
 
 OTPField.defaultProps = {
   inputStyle: {},
-  overrideInputStyle: false,
+  inputFieldClassName: '',
   onSubmit: () => {},
   enableClearAll: false,
   autoFocus: true,
-  clearAllButtonText: 'X',
-  clearAllButtonStyle: {},
-  overrideButtonStyle: false
+  clearAllButton: 'Clear',
+  clearAllButtonStyle: {
+    cursor: 'pointer'
+  },
+  clearAllButtonClassName: ''
 }
 
 export default OTPField
