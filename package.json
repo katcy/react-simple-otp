@@ -11,6 +11,11 @@
   "engines": {
     "node": ">=10"
   },
+  "keywords": [
+    "react",
+    "otp",
+    "react-otp"
+  ],
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
