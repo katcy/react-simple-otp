@@ -87,7 +87,8 @@ OTPField.defaultProps = {
   clearAllButtonStyle: {
     cursor: 'pointer'
   },
-  clearAllButtonClassName: ''
+  clearAllButtonClassName: '',
+  onChange: () => {}
 }
 
 export default OTPField

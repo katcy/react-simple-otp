@@ -30,7 +30,7 @@ class Example extends Component {
         clearAllButton={'Clear'} //Button text for the clear all button
         clearAllButtonStyle={{ border: '2px solid' }} //custom style for the Clear button
         autoFocus={true} //enable Autofocus on the first input field on page load
-        onChange={(val) => {
+        onOTPEnter={(val) => {
           console.log(val)
         }}
       />
